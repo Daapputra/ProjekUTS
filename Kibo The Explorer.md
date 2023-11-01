@@ -35,6 +35,14 @@ Tenologi yang di gunakan dalam game ini yaitu :
 -	Mudah
 -	Warna yang cerah-cerah atau saat siang hari
 
+• Inspirasi Design
+![image](https://github.com/Daapputra/ProjekUTS/assets/148644036/81bcabcb-e58d-4d9b-af6a-7e9c49ecd43a)
+Ketika user menggerakan karakter akan berpindah map/ latar belakag
+
+![image](https://github.com/Daapputra/ProjekUTS/assets/148644036/9d471e90-a709-43f5-8ee7-83dabfb80360)
+
+
+
 ## 2.User Story
 Sebagai  |   saya ingin bisa      |        Sehinnga			                        |    Prioritas
 ---|---|---|---
@@ -56,10 +64,11 @@ Pemain | Dapat membuat tempat tinggal | agar terdapat tempat untuk berlindung | 
  ```mermaid
 erDiagram
    
-    GAME||--o{ KARAKTER : memiliki
+    GAME||--o{ KARAKTER : memiliki  
     PEMAIN ||--o{ GAME : bermain
     PEMAIN ||--o{ NYAWA : memiliki
-
+    KARAKTER ||--o{ MAP : menjelajah
+    KARAKTER ||--O{ MONSTER : menyerang
 ```
   
   
@@ -82,19 +91,28 @@ end
 
 
 ## 5. Teknologi, Library, dan Framework
-## Teknologi
-Game Engine Godot
-## Library
-
-## Framework
-Bahasa pemogramannya menggunakan GDscript yaitu bahasa Godot itu sendiri
+- Bahasa yg digunakan untuk game ini yaitu GDscript, bahasa di Godot itu sendiri
+- Library dan Framework yang digunakan yaitu OpenGL : Godot menggunakan OpenGL untuk rendering grafis.
 
 
 ## 6.Design User Experience dan User Interface
 
+![Screenshot (19)](https://github.com/Daapputra/ProjekUTS/assets/148644036/ea7b3f27-8267-4d16-a9dd-bcb2829bc8ff)
+
+Ketika user menggerakan karakter ke atas, map/latar belakang akan berpindah seperti gambar di bawah ini
+
+![Screenshot (20)](https://github.com/Daapputra/ProjekUTS/assets/148644036/0faa3933-a968-48fa-8b4e-13497e63781d)
+
+Ketika user menggerakan karakter ke bawah, map/latar belakang akan berpindah seperti gambar di bawah ini
+
+![Screenshot (21)](https://github.com/Daapputra/ProjekUTS/assets/148644036/4ca7b200-38b3-4055-9a02-6601cb989f64)
 
 
-![Screenshot (18)](https://github.com/Daapputra/ProjekUTS/assets/148644036/a991cb43-8981-4a99-91e3-136a51e80720)
+
+
+ 
+
+
 
 
 
