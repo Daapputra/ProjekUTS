@@ -37,7 +37,7 @@ Tenologi yang di gunakan dalam game ini yaitu :
 
 • Inspirasi Design
 ![image](https://github.com/Daapputra/ProjekUTS/assets/148644036/81bcabcb-e58d-4d9b-af6a-7e9c49ecd43a)
-Ketika user menggerakan karakter akan berpindah map/ latar belakag
+Ketika user menggerakan karakter akan berpindah map/ latar belakang seperti gambar di bawah ini.
 
 ![image](https://github.com/Daapputra/ProjekUTS/assets/148644036/9d471e90-a709-43f5-8ee7-83dabfb80360)
 
