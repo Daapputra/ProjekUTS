@@ -7,13 +7,7 @@ Maka dari itu pada kesempatan kali ini saya ingin membuat game yang bertemakan R
 
 Jadi di game ini kita dapat menjelajah map untuk berpetualang atau yang biasa kita sebut game openworld. Selain itu, Ketika kita sedang eksplore hutan akan ada rintangan seperti makhluk aneh yang akan menyerang kita, di game ini kita di siapkan alat senjata yaitu busur dan anak panah untuk menyerang ketika ada monster yang mendatangi kita untuk mencoba menyerang, sehingga kita harus bisa survive Ketika sedang eksplore di hutan. Selain itu juga di game ini kita dapat mengambil dan menyimpan buah-buahan seperti apel di inventory untuk bisa bertahan hidup.
 ## 1.2 Deskripsi Teknologi Informasi
-Tenologi yang di gunakan dalam game ini yaitu :
-
-• Platform yang digunakan dalam game ini yaitu game engine Godot.
-
-• Desain Grafis dan Animasi yang digunakan dalam game ini yaitu menggunakan Assets seperti karakter,monster, latar belakang, animasi,        dan objek lainnya.
-
-• Bahasa pemograman yang digunakan dalam game ini yaitu menggunakanan bahasa Godot itu sendiri yaiut GDscript.
+Game Kibo The Explorer ini menggunakan game engine yaitu Godot V4. Desain Grafis dan Animasi yang digunakan dalam game ini yaitu menggunakan Assets seperti karakter,monster, latar belakang, animasi,        dan objek lainnya. Bahasa pemograman yang digunakan dalam game ini yaitu menggunakanan bahasa Godot itu sendiri yaiut GDscript. Game Kibo The Explorer game yang bertemakan game survival tetapi dengan tampilan yang menghibur, contoh nya dari segi warna dari karakter, latar tempat, yang penuh warna yang membuat pemain akan lebih terhibur dengan tampilan tersebut.
 ## 1.3 Branding
 • Merk : Kibo The Explorer
 
@@ -56,54 +50,189 @@ Pemain | Dapat menyimpan bahan makanan | bahan makanan dapat di kumpulkan di inv
 Pemain | Dapat menyimpan anak panah | untuk berjaga-jaga bila anak panah habis terpakai | ⭐⭐⭐
 Pemain | Dapat memburu hewan | untuk bahan makanan atau bahan keperluan untuk bertahan hidup | ⭐⭐⭐
 Pemain | Dapat membuat tempat tinggal | agar terdapat tempat untuk berlindung | ⭐⭐⭐⭐
+Pemain | Dapat berubah waktu dari siang menjadi malam | Agar dapat merasakan suasanan yang berbeda- beda yaitu ketika malam dan siang| ⭐⭐⭐
 
 
 
 ## 3.Struktur Data
+```mermaid
 
- ```mermaid
 erDiagram
+    Profile ||--|| Player : has
+    Profile{
+    int player_id 
+    string nickname
+    string password
+    string email
+    }
    
-    GAME||--o{ KARAKTER : memiliki  
-    PEMAIN ||--o{ GAME : bermain
-    PEMAIN ||--o{ NYAWA : memiliki
-    KARAKTER ||--o{ MAP : menjelajah
-    KARAKTER ||--O{ MONSTER : menyerang
+    Player{
+        int profile_id
+        int character_id 
+    }
+    
+
+    Player ||--|{ Character  : create
+   Character{
+        string item_name
+        int item_id
+    }
+    Player ||--o{ World  : create
+    World {
+        string world_name
+        int creator_id
+        int created_time
+        int world_id
+        int password
+    }
+    World ||--|{ Object : has
+    Object{
+        int object_id
+        
+    }
+    
+    Character ||--|{ Equiped : has
+    Equiped {
+        string item_name
+        int item_id
+        string item_speciality
+        int item_stats
+    }
+    Equiped ||--|| Item : use
+    Inventory ||--o{ Item : hold
+    Inventory ||--o{ Material : hold
+    Character ||--|{ Object : interact
+    Character ||--|| Inventory  : has 
+    Inventory{
+        int item_id
+        int equiped_item_id
+        string item_name
+        string equiped_item_name
+        int material_id
+        string material_name
+        int object_quantity
+    }
+    Object ||--|| Nature : has
+    Nature {
+        int nature_id
+        string nature_name
+    }
+    Nature ||--|| Material : has
+    Material{
+        int material_id
+        string material_name
+    }
+    Item ||--|| Skills : has
+    Skills {
+        int speciality_id
+        string speciality_name
+    }
+    Object ||--|| Item : has
+    Item {    
+        string item_name
+        int item_id
+        int item_speciality
+        int item_stats
+    }
+    Object ||--|| Creatures : has
+    Creatures {
+        int creature_id
+        string creature_name
+    }
+    Object ||--|| Animals : has
+    Animals {
+        int animal_id
+        string animal_name
+        int animal_stats
+    }
+   
+
+    Object ||--|| Building : has
+    Building{
+        int building_id
+        int position
+        string building_name
+    }
+    Object ||--|| NPC : has
+    NPC {
+        int NPC_id
+        string NPC_name
+    }
+
 ```
   
   
 ## 4.Arsitektur Sistem
-
- ```mermaid  
-   
-   %%{init: {"flowchart": {"htmlLabels": false}} }%%
-flowchart LR
-subgraph " "
-  a("FRONTEND
-  ") -- "MEMILIKI" --> b{{"GODOT"}}
-end
-subgraph "****"
-  c("BACKEND
-  ") -- " MEMILIKI " --> d("GDcript")
-end
+```mermaid
+flowchart TD
+    A[Mobile : Godot Engine] <-->   B[Game Server : C++] 
+    B <--> C[Database : MySQL]
 
 ```
+    
+
+
+
 
 
 ## 5. Teknologi, Library, dan Framework
-- Bahasa yg digunakan untuk game ini yaitu GDscript, bahasa di Godot itu sendiri
-- Library dan Framework yang digunakan yaitu OpenGL : Godot menggunakan OpenGL untuk rendering grafis.
+```
+extends CharacterBody2D
+
+var speed = 100
+
+var player_state
+
+func _physics_process(delta):
+	var direction = Input.get_vector("left", "right", "up", "down")
+	
+	if direction.x == 0 and direction.y == 0:
+		player_state = "idle"
+	elif direction.x != 0 or direction.y != 0:
+		player_state = "walking"
+	
+	velocity = direction * speed
+	move_and_slide()
+	
+	play_anim(direction)
+
+func play_anim(dir):
+	
+	if player_state == "idle":
+		$AnimatedSprite2D.play("idle")
+	if player_state == "walking":
+		if dir.y == -1:
+			$AnimatedSprite2D.play("n-walk")
+		if dir.x == 1:
+			$AnimatedSprite2D.play("e-walk")
+		if dir.y == 1:
+			$AnimatedSprite2D.play("s-walk")
+		if dir.x == -1:
+			$AnimatedSprite2D.play("w-walk")
+		
+		if dir.x > 0.5 and dir.y < -0.5:
+			$AnimatedSprite2D.play("ne-walk")
+		if dir.x > 0.5 and dir.y > 0.5:
+			$AnimatedSprite2D.play("se-walk")
+		if dir.x < -0.5 and dir.y > 0.5:
+			$AnimatedSprite2D.play("sw-walk")
+		if dir.x < -0.5 and dir.y < -0.5:
+			$AnimatedSprite2D.play("nw-walk")
+
+func player():
+	pass
+```
 
 
 ## 6.Design User Experience dan User Interface
 
 ![Screenshot (19)](https://github.com/Daapputra/ProjekUTS/assets/148644036/ea7b3f27-8267-4d16-a9dd-bcb2829bc8ff)
 
-Ketika user menggerakan karakter ke atas, map/latar belakang akan berpindah seperti gambar di bawah ini
+### Ketika user menggerakan karakter ke atas, map/latar belakang akan berpindah seperti gambar di bawah ini
 
 ![Screenshot (20)](https://github.com/Daapputra/ProjekUTS/assets/148644036/0faa3933-a968-48fa-8b4e-13497e63781d)
 
-Ketika user menggerakan karakter ke bawah, map/latar belakang akan berpindah seperti gambar di bawah ini
+### Ketika user menggerakan karakter ke bawah, map/latar belakang akan berpindah seperti gambar di bawah ini
 
 ![Screenshot (21)](https://github.com/Daapputra/ProjekUTS/assets/148644036/4ca7b200-38b3-4055-9a02-6601cb989f64)
 
