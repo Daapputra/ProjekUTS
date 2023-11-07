@@ -57,17 +57,9 @@ Pemain | Dapat berubah waktu dari siang menjadi malam | Agar dapat merasakan sua
 ## 3.Struktur Data
 ```mermaid
 
-erDiagram
-    Profile ||--|| Player : has
-    Profile{
-    int player_id 
-    string nickname
-    string password
-    string email
-    }
-   
+erDiagram 
     Player{
-        int profile_id
+        int player_id
         int character_id 
     }
     
@@ -80,10 +72,7 @@ erDiagram
     Player ||--o{ World  : create
     World {
         string world_name
-        int creator_id
-        int created_time
         int world_id
-        int password
     }
     World ||--|{ Object : has
     Object{
@@ -134,9 +123,9 @@ erDiagram
         int item_speciality
         int item_stats
     }
-    Object ||--|| Creatures : has
-    Creatures {
-        int creature_id
+    Object ||--|| Monsters : has
+    Monsters {
+        int monsters_id
         string creature_name
     }
     Object ||--|| Animals : has
@@ -165,7 +154,7 @@ erDiagram
 ## 4.Arsitektur Sistem
 ```mermaid
 flowchart TD
-    A[Mobile : Godot Engine] <-->   B[Game Server : C++] 
+    A[Mobile : Godot Engine] <-->   B[Game Server : JavaScript] 
     B <--> C[Database : MySQL]
 
 ```
