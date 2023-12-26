@@ -225,6 +225,9 @@ func player():
 
 ![Screenshot (21)](https://github.com/Daapputra/ProjekUTS/assets/148644036/4ca7b200-38b3-4055-9a02-6601cb989f64)
 
+## 7. Demonstrasi Pembuatan Game
+https://youtu.be/ZsVw8EXnSrg?si=DxxWdzxHqPuDDUI8
+
 
 
 
