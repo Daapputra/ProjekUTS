@@ -154,7 +154,7 @@ erDiagram
 ## 4.Arsitektur Sistem
 ```mermaid
 flowchart TD
-    A[Mobile : Godot Engine] <-->   B[Game Server : JavaScript] 
+    A[Mobile : Godot Engine] <-->   B[Bahasa Pemograman : GDScript] 
     B <--> C[Database : MySQL]
 
 ```
